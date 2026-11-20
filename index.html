@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vandoniel T. Dongcoy | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f0e8; --paper:#fbfaf6; --ink:#16181a; --muted:#6b6e70; --line:#d9d4c7;
+    --green:#1f6b45; --green-soft:#dcebe1;
+    --serif:'Instrument Serif',Georgia,serif; --sans:'Inter Tight',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:hidden;max-width:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+  .label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:20;background:rgba(243,240,232,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:var(--serif);font-size:26px;text-decoration:none}
+  .brand span{color:var(--green);font-style:italic}
+  .links{display:flex;gap:28px;list-style:none}
+  .links a{text-decoration:none;font-size:15px;color:var(--muted);transition:color .2s}
+  .links a:hover{color:var(--ink)}
+  .menu-btn{display:none;background:none;border:1px solid var(--ink);border-radius:999px;padding:6px 14px;font:500 14px var(--sans);color:var(--ink);cursor:pointer;-webkit-appearance:none}
+
+  /* hero */
+  .hero{padding:96px 28px 72px;display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:end}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,8vw,104px);line-height:.95;letter-spacing:-.02em}
+  .hero h1 em{color:var(--green)}
+  .hero p.lead{margin-top:28px;font-size:19px;max-width:520px;color:#34373a}
+  .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 22px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;border:1px solid var(--ink);transition:transform .2s,background .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.solid{background:var(--ink);color:var(--paper)}
+  .btn.solid:hover{background:var(--green);border-color:var(--green)}
+  .portrait{aspect-ratio:4/5;border-radius:20px;background:var(--ink);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px}
+  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform 1.2s ease}
+  .portrait:hover img{transform:scale(1.03)}
+  .portrait .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,24,26,.55),transparent 40%)}
+  .portrait .tag{position:relative;background:var(--paper);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.4}
+  .portrait .tag b{display:block;font-weight:600}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2fbf71;margin-right:6px;box-shadow:0 0 0 4px rgba(47,191,113,.2)}
+
+  .marquee{contain:paint;max-width:100vw;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:16px 0}
+  .marquee div{display:inline-block;animation:slide 28s linear infinite;font-family:var(--serif);font-size:30px;font-style:italic;color:var(--muted)}
+  .marquee span{color:var(--green);font-style:normal;margin:0 22px}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  section{padding:104px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:48px;border-bottom:1px solid var(--line);padding-bottom:18px}
+  .sec-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5vw,60px);line-height:1}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+  .about p{margin-bottom:18px;color:#34373a}
+  .about p.big{font-family:var(--serif);font-size:30px;line-height:1.25;color:var(--ink)}
+  dl{border-top:1px solid var(--line)}
+  dl div{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+  dt{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+  .away{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .away div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:14px}
+  .away b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;margin-bottom:4px}
+
+  /* work */
+  .project{border-top:1px solid var(--line)}
+  .project:last-child{border-bottom:1px solid var(--line)}
+  .project summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:60px 1fr auto 40px;gap:20px;align-items:center;padding:28px 0}
+  .project summary::-webkit-details-marker{display:none}
+  .num{font-family:var(--mono);font-size:13px;color:var(--muted)}
+  .project h3{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1;transition:color .2s}
+  .project summary:hover h3{color:var(--green)}
+  .role{font-size:14px;color:var(--muted);text-align:right}
+  .plus{width:36px;height:36px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;font-size:20px;transition:transform .3s,background .3s}
+  .project[open] .plus{transform:rotate(45deg);background:var(--ink);color:var(--paper)}
+  .detail{display:grid;grid-template-columns:60px 1.3fr 1fr;gap:20px;padding:0 0 36px}
+  .detail p{color:#34373a;margin-bottom:12px}
+  .detail ul{list-style:none}
+  .detail li{padding:6px 0 6px 18px;position:relative;font-size:15px}
+  .detail li::before{content:"→";position:absolute;left:0;color:var(--green)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:999px;background:var(--green-soft);color:var(--green)}
+  .shots{grid-column:2/-1;display:flex;gap:22px;flex-wrap:wrap;margin-top:12px}
+  .phone{width:200px;cursor:zoom-in}
+  .phone img{display:block;width:100%;aspect-ratio:9/20;object-fit:cover;object-position:top;border:7px solid var(--ink);border-radius:30px;background:var(--ink);box-shadow:0 18px 40px -18px rgba(0,0,0,.45);transition:transform .3s}
+  .phone:hover img{transform:translateY(-6px)}
+  .shot figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:12px}
+  .browser{flex:1 1 420px;cursor:zoom-in}
+  .browser .bar{display:flex;align-items:center;gap:6px;background:#e7e3d9;border:1px solid var(--line);border-bottom:none;border-radius:12px 12px 0 0;padding:9px 12px}
+  .browser .bar i{width:9px;height:9px;border-radius:50%;background:#cfc9bb}
+  .browser .bar span{margin-left:10px;font:12px var(--mono);color:var(--muted);background:var(--paper);border-radius:6px;padding:3px 10px;flex:1}
+  .browser img{display:block;width:100%;border:1px solid var(--line);border-radius:0 0 12px 12px}
+  .detail a.more{font-size:15px;font-weight:500;color:var(--green)}
+
+  /* toolkit */
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tool-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px}
+  .tool-card h3{font-family:var(--serif);font-weight:400;font-size:30px;margin:8px 0 16px}
+  .tool-card ul{list-style:none}
+  .tool-card li{padding:9px 0;border-top:1px dashed var(--line);font-size:15px;display:flex;justify-content:space-between}
+  .tool-card li span{color:var(--muted);font-size:13px}
+
+  /* style */
+  .style-sec{padding-top:0}
+  .sec-head h2 em{color:var(--green)}
+  .style-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:20px}
+  .style-photo{position:relative;border-radius:20px;overflow:hidden;min-height:520px;background:var(--ink)}
+  .style-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.08);transition:filter .6s}
+  .style-photo:hover img{filter:none}
+  .stamp{position:absolute;bottom:20px;right:20px;width:104px;height:104px;border-radius:50%;background:var(--green);color:var(--paper);display:grid;place-items:center;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;transform:rotate(-12deg)}
+  .style-cards{display:grid;gap:20px;grid-template-rows:auto 1fr auto}
+  .s-card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:28px;text-decoration:none;transition:transform .25s,border-color .25s}
+  .s-card:hover{transform:translateY(-4px);border-color:var(--ink)}
+  .s-card h3{font-family:var(--serif);font-weight:400;font-size:36px;line-height:1.05;margin:10px 0 12px}
+  .s-card p{color:#34373a;font-size:15px}
+  .s-card .go{margin-top:auto;padding-top:18px;font-weight:500;font-size:15px}
+  .s-card .go i{font-style:normal;display:inline-block;transition:transform .25s}
+  .s-card:hover .go i{transform:translate(3px,-3px)}
+  .s-card.dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .s-card.dark p{color:#b9bcbe}
+  .s-card.dark .label{color:#8f9396}
+  .s-card.dark .go{color:#7fd3a3}
+  .shop-row{display:grid;grid-template-columns:1fr 170px;gap:24px;align-items:start}
+  .ig-wrap{position:relative;padding-bottom:28px;padding-left:28px}
+  .ig-phone{display:block;width:142px;margin-left:auto;border:6px solid #2a2d30;border-radius:24px;box-shadow:0 16px 36px -14px rgba(0,0,0,.7);transform:rotate(3deg);transition:transform .35s}
+  .s-card:hover .ig-phone{transform:rotate(0deg) translateY(-4px)}
+  .qr{position:absolute;left:0;bottom:0;width:84px;height:84px;background:#fff;border-radius:12px;padding:6px;box-shadow:0 10px 24px -10px rgba(0,0,0,.6)}
+  .stats{display:flex;gap:22px;margin-top:16px;padding-top:14px;border-top:1px solid #33373a}
+  .stats b{display:block;font-family:var(--serif);font-weight:400;font-size:30px;line-height:1;color:var(--paper)}
+  .stats span{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8f9396}
+  @media (max-width:500px){.shop-row{grid-template-columns:1fr}.ig-wrap{padding:0;margin-top:6px}.ig-phone{width:170px;margin:0 auto;transform:none}.qr{display:none}.stats{gap:16px}}
+  /* gallery */
+  .gallery-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:72px 0 22px;flex-wrap:wrap}
+  .gallery-head h3{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1}
+  .filters{display:flex;gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px}
+  .filters button{border:none;background:none;font:500 14px var(--sans);padding:7px 16px;border-radius:999px;cursor:pointer;color:var(--muted)}
+  .filters button.active{background:var(--ink);color:var(--paper)}
+  .gallery{display:grid;grid-template-columns:minmax(0,340px) 1fr;grid-auto-rows:260px;gap:14px}
+  .more-fits{grid-row:span 2;display:flex;flex-direction:column;justify-content:flex-end;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:32px;text-decoration:none;transition:border-color .25s}
+  .more-fits:hover{border-color:var(--ink)}
+  .more-fits h4{font-family:var(--serif);font-weight:400;font-size:clamp(36px,4vw,56px);line-height:1;margin:12px 0 14px}
+  .more-fits p{color:#34373a;max-width:380px}
+  .more-fits .go{margin-top:22px;font-weight:500}
+  .more-fits:hover .go i{display:inline-block;transform:translate(3px,-3px)}
+  .g-item{position:relative;border-radius:16px;overflow:hidden;background:var(--ink);cursor:pointer}
+  .g-item.tall{grid-row:span 2}
+  .g-item.wide{grid-column:span 2}
+  .g-item.feature{grid-column:span 2;grid-row:span 2}
+  .g-item img,.g-item video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+  .g-item:hover img,.g-item:hover video{transform:scale(1.04)}
+  .g-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;color:#fff;font-size:13px;background:linear-gradient(transparent,rgba(0,0,0,.65));opacity:0;transition:opacity .3s}
+  .g-item:hover figcaption{opacity:1}
+  .g-item .play{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--ink);display:grid;place-items:center;font-size:11px}
+  .g-item.empty{background:transparent;border:1px dashed var(--line);display:grid;place-items:center;cursor:default}
+  .g-item.empty span{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .g-item.hide{display:none}
+  .mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;width:100%;height:100%;transition:transform .6s}
+  .g-item:hover .mosaic{transform:scale(1.03)}
+  .mosaic img{transition:none}
+  .g-item:hover .mosaic img{transform:none}
+  .count{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);color:var(--ink);border-radius:999px;padding:4px 10px;font:500 12px var(--mono)}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid #555;background:rgba(0,0,0,.4);color:#fff;font-size:20px;cursor:pointer;display:none}
+  .lb-nav.show{display:block}
+  .lb-prev{left:18px}.lb-next{right:18px}
+  .lb-count{position:absolute;top:24px;left:24px;color:#b9bcbe;font:13px var(--mono)}
+  .lightbox{position:fixed;inset:0;z-index:50;background:rgba(10,11,12,.94);display:none;align-items:center;justify-content:center;padding:24px}
+  .lightbox.open{display:flex}
+  .lightbox img,.lightbox video{max-width:100%;max-height:86vh;border-radius:12px}
+  .lb-close{position:absolute;top:18px;right:22px;background:none;border:1px solid #555;color:#fff;border-radius:999px;padding:6px 14px;font:500 14px var(--sans);cursor:pointer}
+  .lb-cap{position:absolute;bottom:20px;left:0;right:0;text-align:center;color:#b9bcbe;font-size:14px}
+  @media (max-width:860px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:200px}.more-fits{padding:20px}.more-fits h4{font-size:28px}.more-fits p{font-size:14px}}
+  .s-note{border:1px dashed var(--line);border-radius:16px;padding:18px 22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .s-note p{font-size:15px}
+  .s-note a{color:var(--green);font-weight:500}
+
+  /* contact */
+  #contact{background:var(--ink);color:var(--paper)}
+  #contact .sec-head{border-color:#33373a}
+  #contact .label{color:#8f9396}
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+  .contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:1}
+  .contact h2 em{color:#7fd3a3}
+  .contact p{color:#b9bcbe;margin-top:22px;max-width:420px}
+  .contact-links{margin-top:30px;display:grid;gap:10px}
+  .contact-links div{display:flex;gap:14px;font-size:15px}
+  .contact-links .label{width:90px}
+  form{display:grid;gap:14px}
+  input,textarea{width:100%;background:transparent;border:none;border-bottom:1px solid #45494c;color:var(--paper);font:16px var(--sans);padding:14px 2px;outline:none;transition:border-color .2s}
+  input:focus,textarea:focus{border-color:#7fd3a3}
+  textarea{min-height:120px;resize:vertical}
+  form .btn{justify-self:start;background:var(--paper);color:var(--ink);border-color:var(--paper);cursor:pointer;margin-top:10px}
+  form .btn:hover{background:#7fd3a3;border-color:#7fd3a3}
+  .note{font-size:14px;color:#7fd3a3;min-height:20px}
+
+  footer{background:var(--ink);color:#8f9396;border-top:1px solid #33373a;padding:26px 0;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between}
+  footer a{text-decoration:none}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line)}
+    .links.open{display:flex}
+    .links a{display:block;padding:16px 28px;font-size:17px;color:var(--ink)}
+    .menu-btn{display:block}
+    .hero,.about,.contact{grid-template-columns:1fr;gap:40px}
+    .hero{padding-top:56px}
+    .portrait{max-width:360px}
+    .tools,.away,.style-grid{grid-template-columns:1fr}
+    .style-photo{min-height:440px}
+    .project summary{grid-template-columns:36px 1fr 40px}
+    .role{display:none}
+    .detail{grid-template-columns:1fr;padding-left:0}
+    .detail>span{display:none}
+    .shots{grid-column:1/-1;flex-wrap:nowrap;overflow-x:auto;gap:16px;padding-bottom:6px}
+    .phone{width:170px;flex:0 0 auto}
+    section{padding:72px 0}
+  }
+  @media (prefers-reduced-motion:reduce){.marquee div{animation:none}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">Van<span>.</span></a>
+    <ul class="links" id="links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#style">Style</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false">Menu</button>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="reveal">
+      <p class="label">Computer Science · Palawan State University</p>
+      <h1 style="margin-top:18px">I build apps that<br><em>solve real</em> local problems.</h1>
+      <p class="lead">Hi, I'm Vandoniel Dongcoy, but most people call me Van. I'm a Computer Science student and mobile developer from Rizal, Palawan. I build Android apps and websites that people around me actually use.</p>
+      <div class="cta">
+        <a href="#work" class="btn solid">See my projects</a>
+        <a href="#contact" class="btn">Contact me</a>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <img src="portrait2.jpg" alt="Portrait of Vandoniel Dongcoy in a leopard shirt">
+      <div class="shade"></div>
+      <div class="tag"><span class="dot"></span><b>Currently building TRIGO</b>Thesis project · Android</div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div>Android development <span>✦</span> Web development <span>✦</span> Maps &amp; location <span>✦</span> Firebase &amp; Supabase <span>✦</span> Archive fits <span>✦</span> Android development <span>✦</span> Web development <span>✦</span> Maps &amp; location <span>✦</span> Firebase &amp; Supabase <span>✦</span> Archive fits <span>✦</span></div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>About me</h2><span class="label">01</span></div>
+      <div class="about">
+        <div class="reveal">
+          <p class="big">I like building things people in my own community can use, like a ride app for tricycles back home.</p>
+          <p>I'm a Computer Science student at Palawan State University. Most of my work is in Android with Kotlin and Jetpack Compose. I also build web apps with Next.js and TypeScript.</p>
+          <p>I care about getting things right, even when nobody would notice. That means locking down security rules, fixing edge cases, and testing on real devices instead of just the emulator.</p>
+        </div>
+        <div class="reveal">
+          <dl>
+            <div><dt>Studying</dt><dd>BS Computer Science, Palawan State University</dd></div>
+            <div><dt>Based in</dt><dd>Rizal, Palawan, Philippines</dd></div>
+            <div><dt>Focus</dt><dd>Android apps · Web apps</dd></div>
+            <div><dt>Build with</dt><dd>Kotlin, Jetpack Compose, Next.js, TypeScript</dd></div>
+            <div><dt>Backend</dt><dd>Firebase, Supabase</dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:shee8meyt@gmail.com">shee8meyt@gmail.com</a></dd></div>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/shee8meyt-cmd" target="_blank" rel="noopener">github.com/shee8meyt-cmd</a></dd></div>
+          </dl>
+          <div class="away">
+            <div><b>Archive fashion</b>Japanese archive, Y2K, and vintage pieces</div>
+            <div><b>Thrifting</b>Finding one-of-one pieces</div>
+            <div><b>Running a shop</b>My own clothing brand on the side</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>Selected work</h2><span class="label">02 · Tap a project</span></div>
+
+      <details class="project reveal" open>
+        <summary><span class="num">01</span><h3>TRIGO</h3><span class="role">Thesis · Lead developer</span><span class="plus">+</span></summary>
+        <div class="detail">
+          <span></span>
+          <div>
+            <p>TRIGO is a tricycle ride-booking app for Rizal, Palawan, with separate passenger, driver, and admin roles. Passengers drop a pickup and destination pin and see the fare before they book. Drivers accept rides and follow a road route to the passenger.</p>
+            <div class="chips"><span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">Firebase</span><span class="chip">Supabase</span><span class="chip">MapLibre</span><span class="chip">OpenRouteService</span></div>
+          </div>
+          <ul>
+            <li>Live driver and passenger tracking on the map</li>
+            <li>Fare formula fitted to local terminal rates</li>
+            <li>Driver verification with document upload</li>
+            <li>Firestore security rules with role-based access</li>
+          </ul>
+          <div class="shots">
+            <figure class="phone shot" data-src="trigo1.png"><img src="trigo1.png" alt="TRIGO welcome screen with Passenger and Driver options"><figcaption>Choose your role</figcaption></figure>
+            <figure class="phone shot" data-src="trigo2.png"><img src="trigo2.png" alt="TRIGO passenger home map of Rizal, Palawan"><figcaption>Passenger home · live map</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="project reveal">
+        <summary><span class="num">02</span><h3>VYRE ARCHIVE</h3><span class="role">Personal · Full-stack</span><span class="plus">+</span></summary>
+        <div class="detail">
+          <span></span>
+          <div>
+            <p>A minimal, editorial-style online store for my own archive and Y2K clothing shop. Each piece is one of a kind, so the site protects inventory and passes buyers to Instagram to finish their purchase.</p>
+            <div class="chips"><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">Supabase</span><span class="chip">Netlify</span></div>
+            <p style="margin-top:16px"><a class="more" href="https://vyre-archive.netlify.app" target="_blank" rel="noopener">Visit site →</a></p>
+          </div>
+          <ul>
+            <li>Admin dashboard for quick product uploads</li>
+            <li>Protection for one-of-one items</li>
+            <li>Bag-then-DM purchase flow</li>
+          </ul>
+          <div class="shots">
+            <figure class="browser shot" data-src="vyre1.jpg">
+              <div class="bar"><i></i><i></i><i></i><span>vyre-archive.netlify.app</span></div>
+              <img src="vyre1.jpg" alt="VYRE ARCHIVE homepage with script logo over a sunset sky">
+              <figcaption>Homepage</figcaption>
+            </figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="project reveal">
+        <summary><span class="num">03</span><h3>Your next project</h3><span class="role">Class project · Role</span><span class="plus">+</span></summary>
+        <div class="detail">
+          <span></span>
+          <div>
+            <p>Replace this with another project, like a class system or a group app. Say what it does and what your part was.</p>
+            <div class="chips"><span class="chip">Tech</span><span class="chip">Stack</span></div>
+          </div>
+          <ul><li>Key feature or result</li><li>Key feature or result</li></ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="toolkit" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>Toolkit</h2><span class="label">03</span></div>
+      <div class="tools">
+        <div class="tool-card reveal"><span class="label">Mobile</span><h3>Android</h3>
+          <ul><li>Kotlin <span>main</span></li><li>Jetpack Compose <span>UI</span></li><li>Android Studio <span>IDE</span></li><li>MapLibre <span>maps</span></li></ul></div>
+        <div class="tool-card reveal"><span class="label">Web</span><h3>Frontend</h3>
+          <ul><li>Next.js <span>framework</span></li><li>TypeScript <span>language</span></li><li>Tailwind CSS <span>styling</span></li><li>HTML &amp; CSS <span>basics</span></li></ul></div>
+        <div class="tool-card reveal"><span class="label">Data</span><h3>Backend</h3>
+          <ul><li>Firebase Auth <span>login</span></li><li>Cloud Firestore <span>database</span></li><li>Supabase <span>storage · SQL</span></li><li>Netlify <span>hosting</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="style" class="style-sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>Off the screen, <em>on the fit.</em></h2><span class="label">04 · Style</span></div>
+      <div class="style-grid">
+        <div class="style-photo reveal">
+          <img src="portrait2.jpg" alt="Van in a leopard shirt and black jacket">
+          <span class="stamp">Open for<br>modeling</span>
+        </div>
+        <div class="style-cards">
+          <a class="s-card reveal" href="https://www.tiktok.com/@twink_god67" target="_blank" rel="noopener">
+            <span class="label">TikTok · Fits</span>
+            <h3>Outfit content &amp; modeling</h3>
+            <p>I post my daily fits there: Japanese archive, visual kei, Y2K and dark layered looks. I'm open to modeling, shoots, and brand collabs.</p>
+            <span class="go">@twink_god67 <i>↗</i></span>
+          </a>
+          <a class="s-card dark reveal" href="https://instagram.com/v.arc.don" target="_blank" rel="noopener">
+            <span class="label">Instagram · Shop</span>
+            <h3>VYRE ARCHIVE</h3>
+            <div class="shop-row">
+              <div>
+                <p>My thrift shop, with curated archive, Y2K and vintage pieces. Almost everything is one of one, and new pieces drop every month. Based in the Philippines, with worldwide shipping. DM to buy.</p>
+                <div class="stats">
+                  <div><b>497</b><span>posts</span></div>
+                  <div><b>1.2K</b><span>followers</span></div>
+                  <div><b>264K</b><span>views / 30 days</span></div>
+                </div>
+              </div>
+              <div class="ig-wrap">
+                <img class="ig-phone" src="ig.jpg" alt="VYRE ARCHIVE Instagram profile showing jackets for sale">
+                <img class="qr" src="qr.png" alt="Instagram QR code for @v.arc.don">
+              </div>
+            </div>
+            <span class="go">Shop @v.arc.don <i>↗</i></span>
+          </a>
+          <div class="s-note reveal">
+            <span class="label">Work with me</span>
+            <p>Need a model for a shoot or a lookbook? <a href="#contact">Send me a message</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODELING GALLERY
+           Photo:  <figure class="g-item" data-type="img" data-src="file.jpg"><img src="file.jpg" alt=""><figcaption>Caption</figcaption></figure>
+           Video:  <figure class="g-item" data-type="video" data-src="clip.mp4"><video src="clip.mp4" poster="clip.jpg" muted loop playsinline autoplay></video><span class="play">▶</span><figcaption>Caption</figcaption></figure>
+           Add "tall" or "wide" to the class to change the tile size. -->
+      <div class="gallery-head reveal">
+        <h3>Lookbook</h3>
+      </div>
+      <div class="gallery" id="gallery">
+        <figure class="g-item tall reveal" data-type="video" data-src="fit1.mp4">
+          <video src="fit1.mp4" poster="fit1.jpg" muted loop playsinline autoplay preload="metadata"></video>
+          <span class="play">▶</span>
+          <figcaption>Fit check · black jacket &amp; distressed denim</figcaption>
+        </figure>
+        <a class="more-fits reveal" href="https://www.tiktok.com/@twink_god67" target="_blank" rel="noopener">
+          <span class="label">Follow along</span>
+          <h4>More fits on TikTok.</h4>
+          <p>Short fit checks, outfit transitions and styling ideas with archive and thrifted pieces.</p>
+          <span class="go">Watch @twink_god67 <i>↗</i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">05 · Contact</span><span class="label">Rizal, Palawan</span></div>
+    <div class="contact">
+      <div>
+        <h2>Have an idea? <em>Let's build it.</em></h2>
+        <p>I'm open to dev projects, internships, and teams, and also to modeling, shoots, and brand collabs. Send me a message.</p>
+        <div class="contact-links">
+          <div><span class="label">Email</span><a href="mailto:shee8meyt@gmail.com">shee8meyt@gmail.com</a></div>
+          <div><span class="label">GitHub</span><a href="https://github.com/shee8meyt-cmd" target="_blank" rel="noopener">github.com/shee8meyt-cmd</a></div>
+          <div><span class="label">TikTok</span><a href="https://www.tiktok.com/@twink_god67" target="_blank" rel="noopener">@twink_god67</a></div>
+          <div><span class="label">Shop</span><a href="https://instagram.com/v.arc.don" target="_blank" rel="noopener">@v.arc.don</a></div>
+        </div>
+      </div>
+      <form id="form">
+        <input name="name" placeholder="Your name" required>
+        <input name="email" type="email" placeholder="Your email" required>
+        <textarea name="msg" placeholder="Message" required></textarea>
+        <button class="btn" type="submit">Send message</button>
+        <p class="note" id="note"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose">Close ✕</button>
+  <span class="lb-count" id="lbCount"></span>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  <div id="lbMedia"></div>
+  <p class="lb-cap" id="lbCap"></p>
+</div>
+
+<footer>
+  <div class="wrap"><span>© 2026 Vandoniel T. Dongcoy</span><a href="#top">Back to top ↑</a></div>
+</footer>
+
+<script>
+  const btn=document.getElementById('menuBtn'),links=document.getElementById('links');
+  btn.addEventListener('click',()=>{const o=links.classList.toggle('open');btn.textContent=o?'Close':'Menu';btn.setAttribute('aria-expanded',o)});
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');btn.textContent='Menu'}));
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Gallery filters
+  document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const f=b.dataset.f;
+    document.querySelectorAll('.g-item').forEach(it=>{
+      const t=it.dataset.type||'img';
+      it.classList.toggle('hide',f!=='all'&&t!==f);
+    });
+  }));
+
+  // Lightbox (photos + videos)
+  const lb=document.getElementById('lightbox'),lbMedia=document.getElementById('lbMedia'),lbCap=document.getElementById('lbCap');
+  const lbPrev=document.getElementById('lbPrev'),lbNext=document.getElementById('lbNext'),lbCount=document.getElementById('lbCount');
+  let slides=[],idx=0,isVideo=false;
+  function render(){
+    lbMedia.innerHTML='';
+    let el;
+    if(isVideo){el=document.createElement('video');el.src=slides[0];el.controls=true;el.autoplay=true;el.playsInline=true;}
+    else{el=document.createElement('img');el.src=slides[idx];el.alt='';}
+    lbMedia.appendChild(el);
+    const multi=slides.length>1;
+    lbPrev.classList.toggle('show',multi);lbNext.classList.toggle('show',multi);
+    lbCount.textContent=multi?(idx+1)+' / '+slides.length:'';
+  }
+  function step(d){if(slides.length>1){idx=(idx+d+slides.length)%slides.length;render();}}
+  function closeLb(){lb.classList.remove('open');lbMedia.innerHTML='';}
+  document.querySelectorAll('.g-item:not(.empty)').forEach(it=>it.addEventListener('click',()=>{
+    const cap=it.querySelector('figcaption');
+    isVideo=it.dataset.type==='video';
+    slides=it.dataset.srcs?it.dataset.srcs.split(','):[it.dataset.src];
+    idx=0;render();
+    lbCap.textContent=cap?cap.textContent:'';
+    lb.classList.add('open');
+  }));
+  document.querySelectorAll('.shot').forEach(it=>it.addEventListener('click',()=>{
+    const group=[...it.closest('.shots').querySelectorAll('.shot')];
+    isVideo=false;slides=group.map(g=>g.dataset.src);idx=group.indexOf(it);render();
+    const cap=it.querySelector('figcaption');lbCap.textContent=cap?cap.textContent:'';
+    lb.classList.add('open');
+  }));
+  lbPrev.addEventListener('click',()=>step(-1));
+  lbNext.addEventListener('click',()=>step(1));
+  document.getElementById('lbClose').addEventListener('click',closeLb);
+  lb.addEventListener('click',e=>{if(e.target===lb||e.target===lbMedia)closeLb();});
+  document.addEventListener('keydown',e=>{
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')closeLb();
+    if(e.key==='ArrowLeft')step(-1);
+    if(e.key==='ArrowRight')step(1);
+  });
+  // swipe on phones
+  let sx=null;
+  lb.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)step(dx<0?1:-1);sx=null;});
+
+  // Note: this page has no server, so the form can't really send yet.
+  document.getElementById('form').addEventListener('submit',e=>{
+    e.preventDefault();
+    document.getElementById('note').textContent='The form isn\'t connected yet. Please email me directly in the meantime.';
+  });
+</script>
+</body>
+</html>
